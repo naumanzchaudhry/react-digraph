@@ -541,6 +541,7 @@ class Graph extends React.Component<IGraphProps, IGraphState> {
           nodeTypes={NodeTypes}
           nodeSubtypes={NodeSubtypes}
           edgeTypes={EdgeTypes}
+          shouldTransition={false}
           onSelectNode={this.onSelectNode}
           onCreateNode={this.onCreateNode}
           onUpdateNode={this.onUpdateNode}

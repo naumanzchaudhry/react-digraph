@@ -185,7 +185,13 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
   }
 
   componentDidMount() {
-    const { initialBBox, zoomDelay, minZoom, maxZoom } = this.props;
+    const {
+      initialBBox,
+      zoomDelay,
+      minZoom,
+      maxZoom,
+      shouldTransition,
+    } = this.props;
 
     // TODO: can we target the element rather than the document?
     document.addEventListener('keydown', this.handleWrapperKeydown);
@@ -219,11 +225,14 @@ class GraphView extends React.Component<IGraphViewProps, IGraphViewState> {
     // On the initial load, the 'view' <g> doesn't exist until componentDidMount.
     // Manually render the first view.
     this.renderView();
-    setTimeout(() => {
-      if (this.viewWrapper.current != null) {
-        this.handleZoomToFit();
-      }
-    }, zoomDelay);
+
+    if (shouldTransition) {
+      setTimeout(() => {
+        if (this.viewWrapper.current != null) {
+          this.handleZoomToFit();
+        }
+      }, zoomDelay);
+    }
   }
 
   componentWillUnmount() {
